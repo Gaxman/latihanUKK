@@ -7,4 +7,7 @@
     $sql=mysqli_query($conn,"delete from foto where fotoid='$fotoid'");
 
     header("location:foto.php");
+
+    
+    
 ?>

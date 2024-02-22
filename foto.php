@@ -4,17 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Landing</title>
+    <title>Website Galery Foto</title>
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-danger">
         <div class="container">
-            <a class="navbar-brand" href="index.php">website gallery foto</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="index.php">WEBSITE GALERY FOTO</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -22,12 +24,12 @@
                     <?php
                     session_start();
                     if (!isset($_SESSION['userid'])) {
-                    ?>
+                        ?>
                         <a href="register.php" class="btn btn-outline-primary m-1">Register</a>
                         <a href="login.php" class="btn btn-outline-primary m-1">Login</a>
-                    <?php
+                        <?php
                     } else {
-                    ?>
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="home.php">Home</a>
                         </li>
@@ -40,7 +42,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Logout</a>
                         </li>
-                    <?php
+                        <?php
                     }
                     ?>
                 </div>
@@ -49,11 +51,11 @@
     </nav>
     <div class="container mt-3">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Tambah Data
         </button>
         <div class="card mt-2">
-            <div class="card-header text-bg-primary">Data Gambar</div>
+            <div class="card-header text-bg-warning">Data Gambar</div>
             <div class="card-body">
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
@@ -75,16 +77,26 @@
                         $no = 1;
                         $sql = mysqli_query($conn, "select * from foto,album where foto.userid='$userid' and foto.albumid=album.albumid");
                         while ($data = mysqli_fetch_array($sql)) {
-                        ?>
+                            ?>
                             <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= $data['judulfoto'] ?></td>
-                                <td><?= $data['deskripsifoto'] ?></td>
-                                <td><?= $data['tanggalunggah'] ?></td>
+                                <td>
+                                    <?= $no++ ?>
+                                </td>
+                                <td>
+                                    <?= $data['judulfoto'] ?>
+                                </td>
+                                <td>
+                                    <?= $data['deskripsifoto'] ?>
+                                </td>
+                                <td>
+                                    <?= $data['tanggalunggah'] ?>
+                                </td>
                                 <td>
                                     <img src="gambar/<?= $data['lokasifile'] ?>" width="200px">
                                 </td>
-                                <td><?= $data['namaalbum'] ?></td>
+                                <td>
+                                    <?= $data['namaalbum'] ?>
+                                </td>
                                 <td>
                                     <?php
                                     $fotoid = $data['fotoid'];
@@ -93,26 +105,31 @@
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="hapus_foto.php?fotoid=<?= $data['fotoid'] ?>" class="btn btn-danger">Hapus</a>
-                                    <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit<?= $no ?>">Edit</a>
+                                    <a href="hapus_foto.php?fotoid=<?= $data['fotoid'] ?>" class="btn btn-outline-danger">Hapus</a>
+                                    <a href="#" class="btn btn-outline-success" data-bs-toggle="modal"
+                                        data-bs-target="#edit<?= $no ?>">Edit</a>
                                 </td>
                             </tr>
 
                             <!-- Modal edit-->
-                            <div class="modal fade" id="edit<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="edit<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false"
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit foto</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
                                         <form action="update_foto.php" method="post" enctype="multipart/form-data">
                                             <input type="text" name="fotoid" value="<?= $data['fotoid'] ?>" hidden>
                                             <div class="modal-body">
                                                 <label class="form-label">Judul Foto</label>
-                                                <input type="text" name="judulfoto" class="form-control" value="<?= $data['judulfoto'] ?>">
+                                                <input type="text" name="judulfoto" class="form-control"
+                                                    value="<?= $data['judulfoto'] ?>">
                                                 <label class="form-label">deskripsi</label>
-                                                <input type="text" name="deskripsifoto" class="form-control" value="<?= $data['deskripsifoto'] ?>">
+                                                <input type="text" name="deskripsifoto" class="form-control"
+                                                    value="<?= $data['deskripsifoto'] ?>">
                                                 <label class="form-label">gambar</label>
                                                 <input type="file" name="lokasifile" class="form-control">
                                                 <label class="form-label">album</label>
@@ -121,17 +138,19 @@
                                                     $userid = $_SESSION['userid'];
                                                     $sql2 = mysqli_query($conn, "select * from album where userid='$userid'");
                                                     while ($data2 = mysqli_fetch_array($sql2)) {
-                                                    ?>
+                                                        ?>
                                                         <option value="<?= $data2['albumid'] ?>" <?php if ($data2['albumid'] == $data['albumid']) {
-                                                                                                        echo 'selected';
-                                                                                                    } ?>><?= $data2['namaalbum'] ?></option>
-                                                    <?php
+                                                            echo 'selected';
+                                                        } ?>><?= $data2['namaalbum'] ?>
+                                                        </option>
+                                                        <?php
                                                     }
                                                     ?>
                                                 </select>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary">Ubah</button>
                                             </div>
                                         </form>
@@ -146,7 +165,8 @@
     </div>
 
     <!-- Modal tambah-->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -168,9 +188,11 @@
                             $userid = $_SESSION['userid'];
                             $sql = mysqli_query($conn, "select * from album where userid='$userid'");
                             while ($data = mysqli_fetch_array($sql)) {
-                            ?>
-                                <option value="<?= $data['albumid'] ?>"><?= $data['namaalbum'] ?></option>
-                            <?php
+                                ?>
+                                <option value="<?= $data['albumid'] ?>">
+                                    <?= $data['namaalbum'] ?>
+                                </option>
+                                <?php
                             }
                             ?>
                         </select>
@@ -186,7 +208,7 @@
 
 
     <footer class="d-flex justify-content-center border-top mt-3 bg-light fixed-bottom">
-        <p>UKK 2024</p>
+        <p>PUTU JODI SWASTIKA | UKK 2024</p>
     </footer>
 
     <script src="assets/js/bootstrap.min.js"></script>
